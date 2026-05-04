@@ -17,15 +17,18 @@ function App() {
   });
 
   const searchMovies = async () => {
-  const key = import.meta.env.VITE_OMDB_API_KEY || "5a1b89f7";
-  
-  const res = await fetch(
-    `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
-  );
-  const data = await res.json();
-  setMovies(data.Search ? data.Search : []);
-  setHasSearched(true);
-};
+    // Vite uses import.meta.env to access variables
+    const apiKey = import.meta.env.VITE_OMDB_API_KEY;
+
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}`,
+    );
+    const data = await res.json();
+    console.log(data);
+
+    setMovies(data.Search ? data.Search : []);
+    setHasSearched(true);
+  };
 
   const addFavorite = (movie) =>{
     alert('Added to favorites')
