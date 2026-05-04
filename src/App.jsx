@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 
+
 import "./App.css";
 
 function App() {
@@ -16,16 +17,15 @@ function App() {
   });
 
   const searchMovies = async () => {
-    
-    const res = await fetch(
-      `https://www.omdbapi.com/?apikey=5a1b89f7&s=${query}`,
-    );
-    const data = await res.json();
-    console.log(data);
-
-    setMovies(data.Search ? data.Search : []);
-    setHasSearched(true);
-  };
+  const key = import.meta.env.VITE_OMDB_API_KEY || "5a1b89f7";
+  
+  const res = await fetch(
+    `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
+  );
+  const data = await res.json();
+  setMovies(data.Search ? data.Search : []);
+  setHasSearched(true);
+};
 
   const addFavorite = (movie) =>{
     alert('Added to favorites')
